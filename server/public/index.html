@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omegle AI Test</title>
+</head>
+<body>
+    <textarea id="question"></textarea>
+    <button id="send">SEND</button>
+    <h2 id="answer"></h2>
+    
+    <script>
+        document.querySelector('#send').onclick = () =>
+        {
+            let question = document.querySelector('#question').value
+            document.querySelector('#question').value = ''
+            fetch('http://iquick.hopto.org:42069/input', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    input: question
+                })
+            }).then(response => response.json()).then(data =>
+            {
+                document.querySelector('#answer').textContent = data.response
+            })
+        }
+    </script>
+
+</body>
+</html>
